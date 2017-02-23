@@ -1,16 +1,72 @@
-import React from 'react'
-import NameDetails from './NameDetails.jsx'
-import Book from './Book.jsx'
-import Lesson from './Lesson.jsx'
-export default class App extends React.Component {
+import React from 'react';
+
+class App extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: 0
+    }
+
+    this.setNewNumber = this.setNewNumber.bind(this)
+  };
+
+  setNewNumber() {
+    this.setState({ data: this.state.data + 1 })
+  }
+
   render() {
-    let lesson = <Lesson />
     return (
-      <div >
-        <div style={{textAlign: 'center'}}>My first react application</div>
-        <NameDetails />
-        <Book details={lesson}/>
+      <div>
+        <button onClick={this.setNewNumber}>INCREMENT</button>
+        <Content myNumber={this.state.data}></Content>
       </div>
-    )
+    );
   }
 }
+
+class Content extends React.Component {
+   constructor () {
+     super()
+     console.log('hi')
+   }
+   componentWillMount() {
+      console.log('Component WILL MOUNT!')
+   }
+
+   componentDidMount() {
+      console.log('Component DID MOUNT!')
+   }
+
+   componentWillReceiveProps(newProps) {    
+      console.log('Component WILL RECIEVE PROPS!')
+   }
+
+   shouldComponentUpdate(newProps, newState) {
+     console.log('shouldComponentUpdate')
+      return false;
+   }
+
+   componentWillUpdate(nextProps, nextState) {
+      console.log('Component WILL UPDATE!');
+   }
+
+   componentDidUpdate(prevProps, prevState) {
+      console.log('Component DID UPDATE!')
+   }
+
+   componentWillUnmount() {
+      console.log('Component WILL UNMOUNT!')
+   }
+	
+   render() {
+      return (
+         <div>
+            <h3>{this.props.myNumber}</h3>
+         </div>
+      );
+   }
+}
+
+export default App;
